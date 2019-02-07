@@ -1,0 +1,26 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Conversaciones'" [icon]="'fa-car'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Listado de conversaciones de conductores
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Conductor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of items | async">
+                            <td><button [routerLink]="['/conductor/'+item.key]" class="btn btn-sm btn-info">Ver conversación con el conductor - {{item.key}}</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Servicio'" [icon]="'fa-user'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-user"></i>&nbsp; Detalles del servicio
+                    
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+					  <tbody>
+					    <tr>
+					      <td>Tipo:</td>
+					      <td>{{(item | async)?.tipo}}</td>
+					    </tr>
+					    <tr>
+					      <td>Calificación al conductor</td>
+					      <td>{{(item | async)?.calificacion}}</td>
+					    </tr>
+					    <tr>
+					      <td>Calificación al cliente</td>
+					      <td>{{(item | async)?.calificacionUsuario}}</td>
+					    </tr>
+					    <tr>
+					      <td>Cliente</td>
+					      <td>{{(item | async)?.cliente}}</td>
+					    </tr>
+					    <tr>
+					      <td>Conductor</td>
+					      <td><button class="btn btn-info btn-sm" [routerLink]="['/conductor/'+(item | async)?.conductor]">{{(item | async)?.conductor}}</button></td>
+					    </tr>
+					    <tr>
+					      <td>Origen</td>
+					      <td>{{(item | async)?.origen}}</td>
+					    </tr>
+					    <tr>
+					      <td>Destino</td>
+					      <td>{{(item | async)?.destino}}</td>
+					    </tr>
+					    <tr>
+					      <td>Distancia estimada</td>
+					      <td>{{(item | async)?.distancia.text}}</td>
+					    </tr>
+					    <tr>
+					      <td>Tiempo estimado</td>
+					      <td>{{(item | async)?.tiempo.text}}</td>
+					    </tr>
+					    <tr>
+					      <td>Estado</td>
+					      <td>{{(item | async)?.estado}}</td>
+					    </tr>
+					    <tr>
+					      <td>Fecha de solicitud</td>
+					      <td>{{(item | async )?.fechaSolicitud | date:'medium' }}</td>
+					    </tr>
+					    <tr>
+					      <td>Valor</td>
+					      <td>{{(item | async)?.valor | currency }}</td>
+					    </tr>
+					  </tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-map-marker"></i>&nbsp; Recorrido
+                </div>
+                <div class="card-body">
+                	<div #gmap style="width:100%;height:400px"></div> 
+                </div>
+            </div>
+        </div>
+        <div class="col col-sm-6" *ngIf="firma">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-file"></i>&nbsp; Firma de entrega
+                </div>
+                <div class="card-body">
+                	<img [src]="firma| async" width="100%">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+

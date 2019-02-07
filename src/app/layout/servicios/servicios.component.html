@@ -1,0 +1,49 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Servicios'" [icon]="'fa-car'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Listado de servicios
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Valor</th>
+                            <th>Distancia</th>
+                            <th>Tiempo</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>Fecha</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of items | async">
+                            <td>{{item.payload.val().tipo}} </td>
+                            <td>{{item.payload.val().valor | currency}}</td>
+                            <td>{{item.payload.val().distancia.text}}</td>
+                            <td>{{item.payload.val().tiempo.text}}</td>
+                            <td>{{item.payload.val().origen}}</td>
+                            <td>{{item.payload.val().destino}}</td>
+                            <td>{{item.payload.val().fechaSolicitud | date:'medium'}}</td>
+                            <td>
+                            <span class="badge"
+                                [class.badge-success]="(item.payload.val().estado=='finalizado')" 
+                                [class.badge-primary]="(item.payload.val().estado=='solicitado')"
+                                [class.badge-warning]="(item.payload.val().estado=='aceptado')"
+                                [class.badge-danger]="(item.payload.val().estado=='enPuntoInicio')"
+                                [class.badge-secondary]="(item.payload.val().estado=='cancelado')"
+                                >{{item.payload.val().estado}}</span></td>
+                            <td><button [routerLink]="['/servicio/'+item.key]" class="btn btn-sm btn-info">Ver detalles</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

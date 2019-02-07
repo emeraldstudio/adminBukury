@@ -1,0 +1,59 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Editar tarifas'" [icon]="'fa-dollar'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Editar tarifas
+                    <button class="btn btn-success pull-right" (click)="guardar()">Guardar</button>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+					  <tbody>
+					    <tr>
+					      <td>Km de envío:</td>
+					      <td><input type="text" name="envioKm" [(ngModel)]="envioKm" class="form-control input-underline input-lg"  placeholder="Km de envío"></td>
+					    </tr>
+					    <tr>
+					      <td>Minuto de envío:</td>
+					      <td><input type="text" name="envioMin" [(ngModel)]="envioMin" class="form-control input-underline input-lg"  placeholder="Minuto de envío:"></td>
+					    </tr>
+
+                        <tr>
+                          <td>Km de moto:</td>
+                          <td><input type="text" name="motoKm" [(ngModel)]="motoKm" class="form-control input-underline input-lg"  placeholder="Km de moto"></td>
+                        </tr>
+                        <tr>
+                          <td>Minuto de moto:</td>
+                          <td><input type="text" name="motoMin" [(ngModel)]="motoMin" class="form-control input-underline input-lg"  placeholder="Minuto de moto:"></td>
+                        </tr>
+
+                        <tr>
+                          <td>Km de taxi:</td>
+                          <td><input type="text" name="taxiKm" [(ngModel)]="taxiKm" class="form-control input-underline input-lg"  placeholder="Km de taxi"></td>
+                        </tr>
+                        <tr>
+                          <td>Minuto de taxi:</td>
+                          <td><input type="text" name="taxiMin" [(ngModel)]="taxiMin" class="form-control input-underline input-lg"  placeholder="Minuto de taxi:"></td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                            Tarifas Adicionales
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Adicional de moto:</td>
+                          <td><input type="text" name="adicionalMoto" [(ngModel)]="adicionalMoto" class="form-control input-underline input-lg"  placeholder="Adicional de moto:"></td>
+                        </tr>
+                        <tr>
+                          <td>Adicional de taxi:</td>
+                          <td><input type="text" name="adicionalTaxi" [(ngModel)]="adicionalTaxi" class="form-control input-underline input-lg"  placeholder="Adicional de Taxi:"></td>
+                        </tr>
+					    
+					  </tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

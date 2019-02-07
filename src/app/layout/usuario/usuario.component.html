@@ -1,0 +1,100 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Usuario'" [icon]="'fa-user'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-user"></i>&nbsp; Detalles del usuario
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+					  <tbody>
+					    <tr>
+					      <td>Nombre completo:</td>
+					      <td>{{(item | async)?.nombres}} {{(item | async)?.apellidos}}</td>
+					    </tr>
+					    <tr>
+					      <td>Calificación</td>
+					      <td>{{(item | async)?.calificacion}}</td>
+					    </tr>
+					    <tr>
+					      <td>Celular</td>
+					      <td>{{(item | async)?.celular}}</td>
+					    </tr>
+					    
+					    <tr>
+					      <td>Email</td>
+					      <td>{{(item | async)?.email}}</td>
+					    </tr>
+					    <tr>
+					      <td>Fecha de registro</td>
+					      <td>{{(item | async )?.fechaRegistro | date:'medium' }}</td>
+					    </tr>
+					  </tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col col-sm-6 chat-panel">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-comments"></i>&nbsp; Mensajes del usuario a Speedy App
+                </div>
+                <div class="card-body">
+                	<ul class="chat">
+						<li *ngFor="let mensaje of mensajes | async">
+			            	<div  *ngIf="mensaje.payload.val().de == key" class="left clearfix">
+			            		<span class="chat-img pull-left">
+				                    <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle">
+				                </span>
+				                <div class="chat-body clearfix">
+				                    <div class="header">
+				                        <strong class="primary-font">{{nombres}}</strong>
+				                        <small class="pull-right text-muted">
+				                            <i class="fa fa-clock-o fa-fw"></i> {{mensaje.payload.val().fecha | date:'medium'}}
+				                        </small>
+				                    </div>
+				                    <p>
+				                        {{mensaje.payload.val().mensaje}}
+				                    </p>
+				                </div>
+			            	</div>
+
+			            	<div  *ngIf="mensaje.payload.val().de == 'admin'" class="right clearfix">
+			            		<span class="chat-img pull-right">
+				                    <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle">
+				                </span>
+				                <div class="chat-body clearfix">
+				                    <div class="header">
+				                        <small class=" text-muted">
+				                            <i class="fa fa-clock-o fa-fw"></i> {{mensaje.payload.val().fecha | date}}
+				                        </small>
+				                        <strong class="pull-right primary-font">Speedy app</strong>
+				                    </div>
+				                    <p>
+				                        {{mensaje.payload.val().mensaje}}
+				                    </p>
+				                </div>
+			            	</div>
+			                
+			            </li>
+			            
+			        </ul>
+                </div><!-- Card body -->
+                <div class="card-footer">
+			        <div class="input-group">
+			            <input id="btn-input" name="mensaje" [(ngModel)]="mensaje" type="text" class="form-control input-sm" placeholder="Escriba un mensaje para el usuario aquí...">
+			            <span class="input-group-btn">
+			                <button (click)="enviarMensaje()" class="btn btn-warning btn-sm" id="btn-chat">
+			                    Enviar mensaje
+			                </button>
+			            </span>
+			        </div>
+			    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+

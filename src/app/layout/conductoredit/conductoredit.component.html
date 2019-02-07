@@ -1,0 +1,49 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Editar Conductor'" [icon]="'fa-user'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Editar conductor
+                    <button class="btn btn-success pull-right" (click)="guardar()">Guardar</button>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+					  <tbody>
+					    <tr>
+					      <td>Nombres:</td>
+					      <td><input type="text" name="nombres" [(ngModel)]="nombres" class="form-control input-underline input-lg"  placeholder="Nombres"></td>
+					    </tr>
+					    <tr>
+					      <td>Apellidos:</td>
+					      <td><input type="text" name="apellidos" [(ngModel)]="apellidos" class="form-control input-underline input-lg"  placeholder="Apellidos"></td>
+					    </tr>
+					    <tr>
+					      <td>Celular</td>
+					      <td><input type="text" name="celular" [(ngModel)]="celular" class="form-control input-underline input-lg"  placeholder="Celular"></td>
+					    </tr>
+					    <tr>
+					      <td>Estado</td>
+					      <td>
+					      	<select [(ngModel)]="estado">
+					      		<option value="aprobado">Aprobado</option>
+					      		<option value="rechazado">Rechazado</option>
+					      		<option value="disponible">Disponible</option>
+					      		<option value="noDisponible">No disponible</option>
+					      		<option value="infoVehiculo">Información del vehículo OK</option>
+					      		<option value="infoPersonal">Información personal OK</option>
+					      		<option value="enRevision">Esperando revisión</option>
+							</select>
+					      </td>
+					    </tr>
+					    <tr>
+					      <td>Saldo</td>
+					      <td><input type="text" name="saldo" [(ngModel)]="saldo" class="form-control input-underline input-lg"  placeholder="Saldo"></td>
+					    </tr>
+					  </tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
