@@ -1,0 +1,42 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Notificaciones'" [icon]="'fa-folder'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Listado de notificaciones
+                    <button class="btn btn-success pull-right" [routerLink]="['/crearnotificacion/']">Crear notificación</button>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Mensaje</th>
+                            <th>Detalle</th>
+                            <th>Dirigido a</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of items | async">
+                            <td>{{item.payload.val().categoria}} </td>
+                            <td><img width="300px" src="{{item.payload.val().imagen}}" alt=""></td>
+                            <td>
+                                <span class="badge"
+                                [class.badge-success]="(item.payload.val().estado=='disponible')" 
+                                [class.badge-primary]="(item.payload.val().estado=='aprobado')"
+                                [class.badge-warning]="(item.payload.val().estado=='infoVehiculo' || item.payload.val().estado=='infoPersonal')"
+                                [class.badge-danger]="(item.payload.val().estado=='enRevision')"
+                                [class.badge-secondary]="(item.payload.val().estado=='ocupado' || item.payload.val().estado=='noDisponible')"
+                                >{{item.payload.val().estado}}</span>
+                                </td>
+                            <td><button [routerLink]="['/categoria/'+item.key]" class="btn btn-sm btn-info">Ver servicios</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
