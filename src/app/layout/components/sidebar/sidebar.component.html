@@ -16,6 +16,12 @@
             <i class="fa fa-fw fa-paper-plane"></i>&nbsp;
             <span>{{ 'Servicios' | translate }}</span>
         </a>
+
+        <a [routerLink]="['/pagostriskel']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dollar"></i>&nbsp;
+            <span>Pagos Triskel</span>
+        </a>
+
         <a [routerLink]="['/usuarios']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-users"></i>&nbsp;
             <span>{{ 'Usuarios' | translate }}</span>
@@ -32,10 +38,10 @@
             <i class="fa fa-fw fa-bell"></i>&nbsp;
             <span>{{ 'Notificaciones' | translate }}</span>
         </a>
-        <a [routerLink]="['/conversaciones']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+        <!-- <a [routerLink]="['/conversaciones']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-comments"></i>&nbsp;
-            <span>{{ 'Chat de conductores' | translate }}</span>
-        </a>
+            <span>{{ 'Chat de afiliados' | translate }}</span>
+        </a> -->
         <!-- <a [routerLink]="['/tables']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-table"></i>&nbsp;
             <span>{{ 'Tables' | translate }}</span>

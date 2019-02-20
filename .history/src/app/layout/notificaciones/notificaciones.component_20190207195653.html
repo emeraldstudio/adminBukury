@@ -1,0 +1,58 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Notificaciones'" [icon]="'fa-folder'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Listado de notificaciones
+                    <button class="btn btn-success pull-right" data-toggle="modal" (click)="open(crear)">Crear notificación</button>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Mensaje</th>
+                            <th>Detalle</th>
+                            <th>Dirigido a</th>
+                            <th>Fecha</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of items | async">
+                                <td>{{item.payload.val().titulo}} </td>
+                                <td>{{item.payload.val().mensaje}}</td>
+                                <td>{{item.payload.val().detalle}}</td>
+                                <td>{{item.payload.val().tipo}}</td>
+                                <td>{{item.payload.val().fecha | date}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #crear let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Nueva notificación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cerrar('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" name="titulo" [(ngModel)]="titulo" placeholder="Título">
+        <input type="text" name="mensaje" [(ngModel)]="mensaje" placeholder="Mensaje">
+        <input type="text" name="detalles" [(ngModel)]="detalles" placeholder="Detalles">
+        <select type="text" name="tipo" [(ngModel)]="tipo" >
+            <option value="Proveedores">Proveedores</option>
+            <option value="Estilistas">Estilistas</option>
+            <option value="Empresas">Empresas</option>
+            <option value="Usuarios">Usuarios</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="enviar()">Enviar</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+    </div>
+</ng-template>

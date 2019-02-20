@@ -5,7 +5,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     Listado de categoriías
-                    <button class="btn btn-success pull-right" [routerLink]="['/crearcategoria/']">Crear categoría</button>
+                    <button class="btn btn-success pull-right" data-toggle="modal" (click)="open(crear)">Crear categoría</button>
                 </div>
                 <div class="card-body table-responsive">
                     <table class="table">
@@ -13,24 +13,15 @@
                         <tr>
                             <th>Categoria</th>
                             <th>Imagen</th>
-                            <th>Acciones</th>
+                            <th>Servicios</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let item of items | async">
-                            <td>{{item.payload.val().categoria}} </td>
-                            <td><img width="300px" src="{{item.payload.val().imagen}}" alt=""></td>
-                            <td>
-                                <span class="badge"
-                                [class.badge-success]="(item.payload.val().estado=='disponible')" 
-                                [class.badge-primary]="(item.payload.val().estado=='aprobado')"
-                                [class.badge-warning]="(item.payload.val().estado=='infoVehiculo' || item.payload.val().estado=='infoPersonal')"
-                                [class.badge-danger]="(item.payload.val().estado=='enRevision')"
-                                [class.badge-secondary]="(item.payload.val().estado=='ocupado' || item.payload.val().estado=='noDisponible')"
-                                >{{item.payload.val().estado}}</span>
-                                </td>
-                            <td><button [routerLink]="['/categoria/'+item.key]" class="btn btn-sm btn-info">Ver servicios</button></td>
-                        </tr>
+                            <tr *ngFor="let item of items | async">
+                                <td>{{item.payload.val().categoria}} </td>
+                                <td><img width="300px" src="{{item.payload.val().imagen}}" alt=""></td>
+                                <td><button [routerLink]="['/categoria/'+item.key]" class="btn btn-primary">Ver servicios</button></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -38,3 +29,20 @@
         </div>
     </div>
 </div>
+<ng-template #crear let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Nueva categoría</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cerrar('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" name="categoria" [(ngModel)]="categoria" placeholder="categoria">
+        <ng2-file-input *ngIf="categoria!=''" (onAction)="documentoSubido($event)"></ng2-file-input> 
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="crearCategoria()">Crear</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar('Close click')">Cerrar</button>
+    </div>
+</ng-template>

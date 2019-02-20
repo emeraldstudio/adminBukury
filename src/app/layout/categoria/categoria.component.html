@@ -1,237 +1,52 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Servicios categoria'" [icon]="'fa-user'"></app-page-header>
     <div class="row">
-        <div class="col col-sm-6">
+        <div class="col col-sm-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-user"></i>&nbsp; Servicios de categoría
+                    <i class="fa fa-user"></i>&nbsp; Servicios de {{(item | async)?.categoria}}
+                    <button class="btn btn-success pull-right" data-toggle="modal" (click)="open(crear)">Crear servicio</button>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
-					  <tbody>
-					    <tr>
-					      <td>Nombre completo:</td>
-					      <td>{{(item | async)?.nombres}} {{(item | async)?.apellidos}}</td>
-					    </tr>
-					    <tr>
-					      <td>Calificación</td>
-					      <td>{{(item | async)?.calificacion}}</td>
-					    </tr>
-					    <tr>
-					      <td>Celular</td>
-					      <td>{{(item | async)?.celular}}</td>
-					    </tr>
-					    <tr>
-					      <td>Ciudad</td>
-					      <td>{{(item | async)?.ciudad}}</td>
-					    </tr>
-					    <tr>
-					      <td>Email</td>
-					      <td>{{(item | async)?.email}}</td>
-					    </tr>
-					    <tr>
-					      <td>Identificación</td>
-					      <td>{{(item | async)?.identificacion}}</td>
-					    </tr>
-					    <tr>
-					      <td>Estado</td>
-					      <td>{{(item | async)?.estado}}</td>
-					    </tr>
-					    <tr>
-					      <td>Fecha de registro</td>
-					      <td>{{(item | async )?.fechaRegistro | date:'medium' }}</td>
-					    </tr>
-					    <tr>
-					      <td>Saldo</td>
-					      <td>{{(item | async)?.saldo | currency }}</td>
-					    </tr>
-					  </tbody>
+					  <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Valor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of servicios | async">
+                                <td>{{item.payload.val().servicio}} </td>
+                                <td>{{item.payload.val().valor}}</td>
+                                <td><button class="btn btn-danger">Eliminar</button></td>
+                            </tr>
+                        </tbody>
 					</table>
                 </div>
             </div>
         </div>
-        <div class="col col-sm-6">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-map-marker"></i>&nbsp; Última ubicación
-                </div>
-                <div class="card-body">
-                	<div #gmap style="width:100%;height:400px"></div> 
-                </div>
-            </div>
-        </div>
-        <div class="col col-sm-6">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-file"></i>&nbsp; Documentos
-                    <button class="btn btn-success pull-right" data-toggle="modal" (click)="openSubir(subirDocumento)">Subir</button>
-                    
-                </div>
-                <div class="card-body">
-
-                	<button *ngIf="cedula==true" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'cedula')">Ver cédula</button>
-
-                	<button *ngIf="foto" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'conductor')">Ver foto</button>
-
-                	<button *ngIf="licencia" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'licencia')">Ver licencia</button>
-
-                	<button *ngIf="soat" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'soat')">Ver SOAT</button>
-
-                	<button *ngIf="tarjetaPropiedad" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'tarjetaPropiedad')">Ver tarjeta de propiedad</button>
-
-                	<button *ngIf="tarjetaOperacion==true" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'tarjetaOperacion')">Ver tarjeta de operación</button>
-
-                	<button *ngIf="tarjetaAmarilla==true" class="btn btn-success btn-block mb-3" data-toggle="modal" (click)="open(content,'tarjetaAmarilla')">Ver tarjeta amarilla</button>
-
-                	<ng-template #content let-c="close" let-d="dismiss">
-					    <div class="modal-header">
-					        <h4 class="modal-title">Documento</h4>
-					        <button type="button" class="close" aria-label="Close" >
-					            <span aria-hidden="true">&times;</span>
-					        </button>
-					    </div>
-					    <div class="modal-body">
-					        <img width="100%" [src]="urlDocumento| async">
-					    </div>
-					    <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" >Cerrar</button>
-					    </div>
-					</ng-template>
-					<ng-template #subirDocumento let-c="closeS" let-d="dismissS">
-					    <div class="modal-header">
-					        <h4 class="modal-title">Subir Documento</h4>
-					        <button type="button" class="close" aria-label="Close" (click)="cerrar('Cross click')">
-					            <span aria-hidden="true">&times;</span>
-					        </button>
-					    </div>
-					    <div class="modal-body">
-					        <p>Indique el tipo de documento y súbalo</p>
-					        <select [(ngModel)]="tipoDoc" required>
-					        	<option value='NO' selected="selected">Selecciona un tiop de documento</option>
-							    <option value="cedula">Cédula</option>
-							    <option value="conductor">Foto del conductor</option>
-							    <option value="licencia">Licencia</option>
-							    <option value="soat">Soat</option>
-							    <option value="tarjetaPropiedad">Tarjeta Propiedad</option>
-							    <option value="tarjetaOperacion">Tarjeta de Operación</option>
-							    <option value="tarjetaAmarilla">Tarjeta Amarilla</option>
-							  </select>
-					        <ng2-file-input (onAction)="documentoSubido($event)"></ng2-file-input> 
-
-					    </div>
-					    <div class="modal-footer">
-					        <button type="button" class="btn btn-danger" aria-label="Close" (click)="cerrar('Cross click')">Cancelar</button>
-					    </div>
-					</ng-template>
-                </div>
-            </div>
-        </div>
-        <div class="col col-sm-6">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-car"></i>&nbsp; Información del vehiculo
-                </div>
-                <div class="card-body">
-                	<table class="table table-striped">
-					  <tbody>
-					    <tr>
-					      <td>Tipo:</td>
-					      <td>{{(item | async)?.tipo}}</td>
-					    </tr>
-					    <tr>
-					      <td>Marca:</td>
-					      <td>{{marca}}</td>
-					    </tr>
-					    <tr>
-					      <td>Referencia:</td>
-					      <td>{{referencia}}</td>
-					    </tr>
-					    <tr>
-					      <td>Modelo:</td>
-					      <td>{{modelo}}</td>
-					    </tr>
-					    <tr>
-					      <td>Placa:</td>
-					      <td>{{placa}}</td>
-					    </tr>
-					    <tr>
-					      <td>Cilindraje:</td>
-					      <td>{{cilindraje}}</td>
-					    </tr>
-					    <tr>
-					      <td>Color:</td>
-					      <td>{{color}}</td>
-					    </tr>
-					    <tr>
-					      <td>Fecha SOAT:</td>
-					      <td>{{fechaSoat}}</td>
-					    </tr>
-					    
-					    
-					  </tbody>
-					</table>
-                </div>
-            </div>
-        </div>
-        <div class="col col-sm-12 chat-panel">
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-comments"></i>&nbsp; Mensajes del conductor a Speedy App
-                </div>
-                <div class="card-body">
-                	<ul class="chat">
-						<li *ngFor="let mensaje of mensajes | async">
-			            	<div  *ngIf="mensaje.payload.val().de == key" class="left clearfix">
-			            		<span class="chat-img pull-left">
-				                    <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle">
-				                </span>
-				                <div class="chat-body clearfix">
-				                    <div class="header">
-				                        <strong class="primary-font">{{nombres}}</strong>
-				                        <small class="pull-right text-muted">
-				                            <i class="fa fa-clock-o fa-fw"></i> {{mensaje.payload.val().fecha | date:'medium' }}
-				                        </small>
-				                    </div>
-				                    <p>
-				                        {{mensaje.payload.val().mensaje}}
-				                    </p>
-				                </div>
-			            	</div>
-
-			            	<div  *ngIf="mensaje.payload.val().de == 'admin'" class="right clearfix">
-			            		<span class="chat-img pull-right">
-				                    <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle">
-				                </span>
-				                <div class="chat-body clearfix">
-				                    <div class="header">
-				                        <small class=" text-muted">
-				                            <i class="fa fa-clock-o fa-fw"></i> {{mensaje.payload.val().fecha | date}}
-				                        </small>
-				                        <strong class="pull-right primary-font">Speedy app</strong>
-				                    </div>
-				                    <p>
-				                        {{mensaje.payload.val().mensaje}}
-				                    </p>
-				                </div>
-			            	</div>
-			                
-			            </li>
-			            
-			        </ul>
-                </div><!-- Card body -->
-                <div class="card-footer">
-			        <div class="input-group">
-			            <input id="btn-input" name="mensaje" [(ngModel)]="mensaje" type="text" class="form-control input-sm" placeholder="Escriba un mensaje para el conductor aquí...">
-			            <span class="input-group-btn">
-			                <button (click)="enviarMensaje()" class="btn btn-warning btn-sm" id="btn-chat">
-			                    Enviar mensaje
-			                </button>
-			            </span>
-			        </div>
-			    </div>
-            </div>
-        </div>
+        
+        
     </div>
 </div>
 <!-- Modal -->
+<ng-template #crear let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Nuevo servicio</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cerrar('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" name="servicio" [(ngModel)]="servicio" placeholder="Servicio">
+        <input type="text" name="valor" [(ngModel)]="valor" placeholder="Valor">
+        
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="crearServicio()">Crear</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar('Close click')">Cerrar</button>
+    </div>
+</ng-template>
 

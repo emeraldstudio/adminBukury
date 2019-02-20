@@ -1,0 +1,36 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Editar proveedor'" [icon]="'fa-user'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Editar proveedor
+                    <button class="btn btn-success pull-right" (click)="guardar()">Guardar</button>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+					  <tbody>
+					    <tr>
+					      <td>Nombres:</td>
+					      <td><input type="text" name="nombres" [(ngModel)]="nombres" class="form-control input-underline input-lg"  placeholder="Nombres"></td>
+					    </tr>
+					    <tr>
+					      <td>Celular</td>
+					      <td><input type="text" name="celular" [(ngModel)]="celular" class="form-control input-underline input-lg"  placeholder="Celular"></td>
+					    </tr>
+					    <tr>
+					      <td>Estado</td>
+					      <td>
+					      	<select [(ngModel)]="estado">
+					      		<option value="inactivo">Inactivo</option>
+					      		<option value="activo">Activo</option>
+							</select>
+					      </td>
+					    </tr>
+					  </tbody>
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

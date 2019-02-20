@@ -1,0 +1,59 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Notificaciones'" [icon]="'fa-folder'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Listado de notificaciones
+                    <button class="btn btn-success pull-right" data-toggle="modal" (click)="open(crear)">Crear notificación</button>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Mensaje</th>
+                            <th>Detalle</th>
+                            <th>Dirigido a</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of items | async">
+                            <td>{{item.payload.val().titulo}} </td>
+                            <td>{{item.payload.val().mensaje}}</td>
+                            <td>{{item.payload.val().detalle}}</td>
+                            <td>{{item.payload.val().tipo}}</td>
+                            <td>
+                                <span class="badge"
+                                [class.badge-success]="(item.payload.val().estado=='disponible')" 
+                                [class.badge-primary]="(item.payload.val().estado=='aprobado')"
+                                [class.badge-warning]="(item.payload.val().estado=='infoVehiculo' || item.payload.val().estado=='infoPersonal')"
+                                [class.badge-danger]="(item.payload.val().estado=='enRevision')"
+                                [class.badge-secondary]="(item.payload.val().estado=='ocupado' || item.payload.val().estado=='noDisponible')"
+                                >{{item.payload.val().estado}}</span>
+                                </td>
+                            <td><button [routerLink]="['/categoria/'+item.key]" class="btn btn-sm btn-info">Ver servicios</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #crear let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Documento</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Oli
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="enviar()">Enviar</button>
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Cerrar</button>
+    </div>
+</ng-template>

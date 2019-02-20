@@ -1,0 +1,56 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Pagos Triskel'" [icon]="'fa-folder'"></app-page-header>
+    <div class="row">
+        <div class="col col-sm-12">
+            <div class="card mb-3">
+                <div class="card-header">
+                    Listado de pagos por Triskel
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Valor</th>
+                            <th>Hash de pago</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of items | async">
+                                <td>{{item.payload.val().idServicio}}</td>
+                                <td>{{item.payload.val().valor}}</td>
+                                <td>{{item.payload.val().hashPago}}</td>
+                                <td>
+                                    <span class="badge"
+                                    [class.badge-success]="(item.payload.val().estado=='verificado')" 
+                                    [class.badge-danger]="(item.payload.val().estado=='sinVerificar')"
+                                    >{{item.payload.val().estado}}</span>
+                                </td>
+                                <td><button *ngIf="item.payload.val().estado=='sinVerificar'" class="btn btn-primary" type="button" (click)="cambiarEstado(item.key, item.payload.val().estado)">Verificar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #crear let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Nueva categoría</h4>
+        <button type="button" class="close" aria-label="Close" (click)="cerrar('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <input type="text" name="categoria" [(ngModel)]="categoria" placeholder="categoria">
+        <ng2-file-input *ngIf="categoria!=''" (onAction)="documentoSubido($event)"></ng2-file-input> 
+        
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="crearCategoria()">Crear</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar('Close click')">Cerrar</button>
+    </div>
+</ng-template>

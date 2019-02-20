@@ -33,6 +33,7 @@ const routes: Routes = [
             { path: 'usuario', loadChildren: './usuario/usuario.module#UsuarioModule' },
             { path: 'usuario/:key', loadChildren: './usuario/usuario.module#UsuarioModule' },
             { path: 'notificaciones', loadChildren: './notificaciones/notificaciones.module#NotificacionesModule' },
+            { path: 'pagostriskel', loadChildren: './pagostriskel/pagostriskel.module#PagostriskelModule' },
 
         ]
     }
